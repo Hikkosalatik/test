@@ -27,7 +27,7 @@ local function check()
 		if string.find(v.id, 'Huge') then
 			huge+=1
 		end
-		if v.id == 'Black Hole Angelus' then
+		if v.id == 'Black Hole Angelus Ball' then
 			local k = 0
 			for x,z in v do
 				if x == 'pt' then
