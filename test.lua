@@ -3,11 +3,13 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local library = require(game.ReplicatedStorage.Library.Client.Save)
 local save = library.Get()
 
+local time = _G.TIME_UPDATE or 10
 local webhook = _G.URL
-local function sendWebhook(arg1,arg2)
+local function sendWebhook(arg1,arg2,arg3)
     local data = {
+	['content'] = 'Update every '.. _G.TIME_UPDATE .. ' minutes',
     ["embeds"] = {{
-		title = "Huges: " .. arg1 .. "\nAngeluses: " .. arg2,
+		title = "Huges: " .. arg1 .. "\nAngeluses: " .. arg2 .. "\nGifts: " .. arg3,
 		footer = { text = "Made by Hikko" }
 	}}
     }
@@ -21,8 +23,9 @@ local function sendWebhook(arg1,arg2)
     request(abcdef)
 end
 local function check()
-	local angelus = 0
+	local angelus = 1
 	local huge = 0
+	local gift = 1
 	for i,v in save.Inventory.Pet do
 		if string.find(v.id, 'Huge') then
 			huge+=1
@@ -39,9 +42,14 @@ local function check()
 			end
 		end
 	end
-	print(huge, angelus)
-	sendWebhook(huge,angelus)
+	for i,v in save.Inventory.Lootbox do
+		if v.id == 'Tower Defense Gift' then 
+			gift = v._am
+		end
+	end
+	sendWebhook(huge,angelus,gift)
 end
-while task.wait(600) do
+while task.wait(time*60) do
 	check()
+	break
 end
