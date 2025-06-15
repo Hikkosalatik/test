@@ -9,7 +9,7 @@ local function sendWebhook(arg1,arg2,arg3)
     local data = {
 	['content'] = 'Update every '.. _G.TIME_UPDATE .. ' minutes',
     ["embeds"] = {{
-		title = "Huges: " .. arg1 .. "\nAngeluses: " .. arg2 .. "\nGifts: " .. arg3,
+		title = "Huges: " .. arg1 .. "\nDominus: " .. arg2 .. "\nGifts: " .. arg3,
 		footer = { text = "Made by Hikko" }
 	}}
     }
@@ -23,23 +23,12 @@ local function sendWebhook(arg1,arg2,arg3)
     request(abcdef)
 end
 local function check()
-	local angelus = 1
+	local event = 0
 	local huge = 0
 	local gift = 1
 	for i,v in save.Inventory.Pet do
 		if string.find(v.id, 'Huge') then
 			huge+=1
-		end
-		if v.id == 'Black Hole Angelus Ball' then
-			local k = 0
-			for x,z in v do
-				if x == 'pt' then
-					k+=1
-				end
-			end
-			if k==0 then
-				angelus+=v._am
-			end
 		end
 	end
 	for i,v in save.Inventory.Lootbox do
@@ -47,9 +36,13 @@ local function check()
 			gift = v._am
 		end
 	end
-	sendWebhook(huge,angelus,gift)
+	for i,v in save.Inventory.Tower do
+		if v.id == 'Nuclear Dominus' then 
+			event+=1
+		end
+	end
+	sendWebhook(huge,event,gift)
 end
 while task.wait(time*60) do
 	check()
-	break
 end
