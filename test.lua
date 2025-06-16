@@ -7,7 +7,7 @@ local time = _G.TIME_UPDATE or 10
 local webhook = _G.URL
 local function sendWebhook(arg1,arg2,arg3)
     local data = {
-	['content'] = 'Update every '.. _G.TIME_UPDATE .. ' minutes',
+	['content'] = 'Update every '.. time .. ' minutes',
     ["embeds"] = {{
 		title = "Huges: " .. arg1 .. "\nDominus: " .. arg2 .. "\nGifts: " .. arg3,
 		footer = { text = "Made by Hikko" }
@@ -46,3 +46,4 @@ end
 while task.wait(time*60) do
 	check()
 end
+
