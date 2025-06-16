@@ -5,11 +5,11 @@ local save = library.Get()
 
 local time = _G.TIME_UPDATE or 10
 local webhook = _G.URL
-local function sendWebhook(arg1,arg2,arg3)
+local function sendWebhook(arg1,arg2,arg3,arg4,arg5)
     local data = {
 	['content'] = 'Update every '.. time .. ' minutes',
     ["embeds"] = {{
-		title = "Huges: " .. arg1 .. "\nDominus: " .. arg2 .. "\nGifts: " .. arg3,
+		title = "Huges: " .. arg1 .. "\nNuclear Dominus: " .. arg2 .. "\nNightmare Cyclops: " .. arg3 .. "\nArcade Angelus: " .. arg4 .. "\nGifts: " .. arg5,
 		footer = { text = "Made by Hikko" }
 	}}
     }
@@ -23,7 +23,9 @@ local function sendWebhook(arg1,arg2,arg3)
     request(abcdef)
 end
 local function check()
-	local event = 0
+	local event1 = 0
+	local event2 = 0
+	local event3 = 0
 	local huge = 0
 	local gift = 1
 	for i,v in save.Inventory.Pet do
@@ -38,12 +40,17 @@ local function check()
 	end
 	for i,v in save.Inventory.Tower do
 		if v.id == 'Nuclear Dominus' then 
-			event+=1
+			event1+=1
+		end
+		if v.id == 'Nightmare Cyclops' then 
+			event2+=1
+		end
+		if v.id == 'Arcade Angelus' then 
+			event3+=1
 		end
 	end
-	sendWebhook(huge,event,gift)
+	sendWebhook(huge,event1,event2,event3,gift)
 end
 while task.wait(time*60) do
 	check()
 end
-
