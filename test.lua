@@ -1,7 +1,6 @@
 repeat task.wait() until game:IsLoaded()
-local excludedPaths = {}
-local prefix = "Players." .. game.Players.LocalPlayer.Name .. ".PlayerScripts."
 local LocalPlayer = game.Players.LocalPlayer
+local prefix = "PlayerScripts."
 local Module = {}
 local rawList = [[
 Scripts.Game.Misc.World Animations.PlanetAnimations
@@ -240,14 +239,27 @@ Scripts.GUIs.Monetization
 Scripts.GUIs.Boosts Panel V3.Modules.Guilds
 ]]
 
+local excludedPaths = {}
 for line in rawList:gmatch("[^\r\n]+") do
     excludedPaths[prefix .. line] = true
 end
-Module.DestroyChildren = function(instance)
-    for _, obj in ipairs(instance:GetDescendants()) do
-        local fullName = obj:GetFullName()
-        if not excludedPaths[fullName] then
+local function getPathFrom(root, obj)
+    local path = obj.Name
+    local parent = obj.Parent
+    while parent and parent ~= root do
+        path = parent.Name .. "." .. path
+        parent = parent.Parent
+    end
+    return parent == root and "PlayerScripts." .. path or nil
+end
+local function DestroyFiltered(root)
+    for _, obj in ipairs(root:GetDescendants()) do
+        local relativePath = getPathFrom(root, obj)
+        if relativePath and not excludedPaths[relativePath] then
             pcall(function() obj:Destroy() end)
         end
     end
 end
+
+DestroyFiltered(LocalPlayer:WaitForChild("PlayerScripts"))
+
