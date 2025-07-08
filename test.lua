@@ -1,4 +1,3 @@
-
 local __DARKLUA_BUNDLE_MODULES __DARKLUA_BUNDLE_MODULES={cache={}, load=function(m)if not __DARKLUA_BUNDLE_MODULES.cache[m]then __DARKLUA_BUNDLE_MODULES.cache[m]={c=__DARKLUA_BUNDLE_MODULES[m]()}end return __DARKLUA_BUNDLE_MODULES.cache[m].c end}do function __DARKLUA_BUNDLE_MODULES.a()_G.unoptimizedDuringDefer = {} 
 local Optimization = {}
 function Optimization.simplifyObject(obj)
@@ -1137,7 +1136,7 @@ local function WaitForEventGround()
     for i = 1, #_G.unoptimizedDuringDefer do
         local obj = _G.unoptimizedDuringDefer[i]
         if obj and obj.Parent then
-            simplifyObject(obj)
+            Optimization.simplifyObject(obj)
         end
         if i % 100 == 0 then
             task.wait()
@@ -1334,7 +1333,7 @@ function Hatching.Hatching()
             WaitForNextZone(currentZone)
         else
             while true do
-                task.wait(1.73)
+                task.wait(1.6)
                 local coinsNow = GetCurrencyAmount("GymCoins")
                 local costNow = (targetEgg._dir and targetEgg._dir.overrideCost) or 0
 
@@ -1404,6 +1403,6 @@ end)
 
 
 task.spawn(function()
-    Hatching.Start()
+    Hatching.Hatching()
 end)
 
