@@ -1246,31 +1246,15 @@ return Webhook end function __DARKLUA_BUNDLE_MODULES.g()
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Network = ReplicatedStorage:WaitForChild("Network")
 local SaveModule = require(ReplicatedStorage.Library.Client.Save)
-local Types = require(ReplicatedStorage.Library.Types.Gym)
+local InstanceZoneCmds = require(ReplicatedStorage.Library.Client.InstanceZoneCmds)
+local InstancingCmdsupvr = require(ReplicatedStorage.Library.Client.CustomEggsCmds)
+local eggsCmdsupvr = require(ReplicatedStorage.Library.Client.EggCmds)
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
-local InstanceZoneCmds = require(ReplicatedStorage.Library.Client.InstanceZoneCmds)
-local InstancingCmdsupvr = require(game:GetService("ReplicatedStorage").Library.Client.CustomEggsCmds)
-local eggsCmdsupvr = require(game:GetService("ReplicatedStorage").Library.Client.EggCmds)
+
 local Hatching = {}
-local function GetCurrencyAmount(currencyId)
-    local saveData = SaveModule.Get()
-    for _, v in pairs(saveData.Inventory.Currency or {}) do
-        if v.id == currencyId then
-            return v._am or 0
-        end
-    end
-    return 0
-end
 
 local Event_Eggs = {}
-
-local function Teleport(position)
-    if LocalPlayer.Character then
-        LocalPlayer.Character:MoveTo(position)
-    end
-end
-
 local eggOrder = {
     "Muscle Beach Egg",
     "Rizz Reef Egg",
@@ -1282,40 +1266,58 @@ local eggOrder = {
     "Crashed Out Egg Tier 1"
 }
 
-
-local bestZone = InstanceZoneCmds.GetMaximumOwnedZoneNumber()
-local maxHatch = eggsCmdsupvr.GetMaxHatch()
-local allEggs = InstancingCmdsupvr.All()
-
-
-for index, eggName in ipairs(eggOrder) do
-    for _, obj in pairs(allEggs) do
-        if obj._id == eggName then
-            Event_Eggs[index] = obj
-            break
+local function GetCurrencyAmount(currencyId)
+    local saveData = SaveModule.Get()
+    for _, v in pairs(saveData.Inventory.Currency or {}) do
+        if v.id == currencyId then
+            return v._am or 0
         end
+    end
+    return 0
+end
+
+local function Teleport(position)
+    if LocalPlayer.Character then
+        LocalPlayer.Character:MoveTo(position)
     end
 end
 
 
+local function InitEggData()
+    local allEggs = InstancingCmdsupvr.All()
+    for index, eggName in ipairs(eggOrder) do
+        for _, obj in pairs(allEggs) do
+            if obj._id == eggName then
+                Event_Eggs[index] = obj
+                break
+            end
+        end
+    end
+end
+
 function Hatching.Hatching()
+    
+    repeat
+        task.wait(1)
+    until InstancingCmds.IsInInstance() and InstanceZoneCmds.GetMaximumOwnedZoneNumber() >= 1
+
+    task.wait(5) 
+    InitEggData()
+
     local function GetBestZone()
         return InstanceZoneCmds.GetMaximumOwnedZoneNumber()
     end
 
-    local function WaitForNextZone(current)
-        while GetBestZone() <= current do
-            task.wait(10)
-        end
-    end
+    local maxHatch = eggsCmdsupvr.GetMaxHatch()
 
     while true do
         local currentZone = GetBestZone()
         local targetEgg = Event_Eggs[currentZone]
-        
+
         if not targetEgg then
-            warn("Egg not found for zone:", currentZone)
-            return
+            warn("[Hatching] Egg not found for zone:", currentZone)
+            task.wait(10)
+            continue
         end
 
         Teleport(targetEgg._position)
@@ -1325,12 +1327,12 @@ function Hatching.Hatching()
         local cost = (targetEgg._dir and targetEgg._dir.overrideCost) or 0
 
         if cost > 0 and coins >= cost * maxHatch then
-            ReplicatedStorage.Network:WaitForChild("CustomEggs_Hatch"):InvokeServer(targetEgg._uid, maxHatch)
+            Network:WaitForChild("CustomEggs_Hatch"):InvokeServer(targetEgg._uid, maxHatch)
         end
 
         if currentZone < 8 then
-            print("Waiting to unlock next zone...")
-            WaitForNextZone(currentZone)
+            print("[Hatching] Waiting to unlock next zone...")
+            repeat task.wait(10) until GetBestZone() > currentZone
         else
             while true do
                 task.wait(1.6)
@@ -1338,12 +1340,13 @@ function Hatching.Hatching()
                 local costNow = (targetEgg._dir and targetEgg._dir.overrideCost) or 0
 
                 if costNow > 0 and coinsNow >= costNow * maxHatch then
-                    ReplicatedStorage.Network:WaitForChild("CustomEggs_Hatch"):InvokeServer(targetEgg._uid, maxHatch)
+                    Network:WaitForChild("CustomEggs_Hatch"):InvokeServer(targetEgg._uid, maxHatch)
                 end
             end
         end
     end
 end
+
 return Hatching
 
 
@@ -1400,9 +1403,14 @@ task.spawn(function()
     end
 end)
 
-
-
 task.spawn(function()
+    repeat
+        task.wait(3)
+    until InstancingCmds.IsInInstance() and InstanceZoneCmds.GetMaximumOwnedZoneNumber() >= 1
+
     Hatching.Hatching()
 end)
+
+
+
 
