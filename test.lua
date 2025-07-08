@@ -1251,6 +1251,8 @@ local InstancingCmdsupvr = require(ReplicatedStorage.Library.Client.CustomEggsCm
 local eggsCmdsupvr = require(ReplicatedStorage.Library.Client.EggCmds)
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
+local InstancingCmds = require(game:GetService("ReplicatedStorage").Library.Client.InstancingCmds)
+local InstanceZoneCmds = require(game:GetService("ReplicatedStorage").Library.Client.InstanceZoneCmds)
 
 local Hatching = {}
 
@@ -1402,7 +1404,8 @@ task.spawn(function()
         task.wait(300) 
     end
 end)
-
+local InstancingCmds = require(game:GetService("ReplicatedStorage").Library.Client.InstancingCmds)
+local InstanceZoneCmds = require(game:GetService("ReplicatedStorage").Library.Client.InstanceZoneCmds)
 task.spawn(function()
     repeat
         task.wait(3)
@@ -1410,6 +1413,8 @@ task.spawn(function()
 
     Hatching.Hatching()
 end)
+
+
 
 
 
