@@ -63,9 +63,8 @@ function Mail.Send(mailConfig, recipient, maxCost)
                     amountToSend
                 }
 
-                local success, err = pcall(function()
-                    Network:WaitForChild("Mailbox: Send"):InvokeServer(unpack(args))
-                end)
+                local success, err = Network:WaitForChild("Mailbox: Send"):InvokeServer(unpack(args))
+
                 print(success, err)
                 if success then
                     print("📬 Sent", configId, "to", recipient)
