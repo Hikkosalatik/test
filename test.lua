@@ -30,17 +30,19 @@ local function InitEggData()
         end
     end
 end
-
+local function TeleporToEgg()
+    local position, _, _ = InitEggData()
+    Teleport(position)
+    print("Teleporting to Egg")
+end
 function Hatching(once)
     repeat
         task.wait(1)
         print("Waiting Load Instance")
     until InstancingCmds.IsInInstance()
-    local position, uid, cost = InitEggData()
-
-    task.wait(5)
-    Teleport(position)
-
+    local _, uid, cost = InitEggData()
+    TeleporToEgg()
+    task.wait()
     local maxHatch = eggsCmdsupvr.GetMaxHatch()
     
     local targetEgg = "TierEggOne" --потом заменить на переменную TARGET_EGG
