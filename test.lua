@@ -22,6 +22,16 @@ local function GetEggMulti()
     end
 end
 
+local function GetCurrencyAmount() --WORK
+    local save = SaveModule.Get()
+    for _, v in pairs(save.Inventory.Currency or {}) do
+        if v.id == "BlockPartyCoins" then
+            return v._am or 0
+        end
+    end
+    return 0
+end
+
 local function InitEggData()
     local allEggs = InstancingCmdsupvr.All()
     local mult = GetEggMulti()
