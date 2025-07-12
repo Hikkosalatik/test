@@ -1,82 +1,81 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Network = ReplicatedStorage:WaitForChild("Network")
-local SaveProvider = require(ReplicatedStorage.Library.Client.Save)
-local costGrowthRate = require(ReplicatedStorage.Library.Types.Mailbox).DiamondCostGrowthRate
-local startMailCost = require(ReplicatedStorage.Library.Balancing.Constants).MailboxDiamondCost
-
-local Mail = {}
-
--- Сообщения для случайного выбора
-local messages = {
-    "Enjoy this!", "For you", "Gift time", "Take this", "Have fun", "Surprise drop",
-    "Lucky day", "Happy gift", "Treasure time", "Free stuff", "Just because", "For luck",
-    "Much love", "With care", "From me", "Claim now", "Be happy", "One for you",
-    "Shiny gift", "You earned it", "Random joy", "It's yours", "Catch this", "Sharing wealth",
-    "Loot drop", "You deserve", "Feel rich", "More gems", "Special treat", "A small gift"
-}
-_G.Mail_Config = {
-    ["All Huges"] = {Class = "Pet", MinAmount = 1},
-    ["Buff Gym Gift"] = {Class = "Lootbox", MinAmount = 100}
-}
--- Получить стоимость отправки письма
-local function getMailCost()
-    local data = SaveProvider.Get()
-    local count = data.MailboxSendsSinceReset or 0
-    local isVIP = data.Gamepasses and data.Gamepasses.VIP
-    return isVIP and startMailCost or startMailCost * costGrowthRate ^ count
+local InstancingCmds = require(ReplicatedStorage.Library.Client.PlotCmds.ClientPlot)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local function Teleport(position)
+    if LocalPlayer.Character then
+        LocalPlayer.Character:MoveTo(position)
+    end
 end
+print("=====================")
 
--- Основная функция отправки почты
-function Mail.Send(mailConfig, recipient, maxCost)
-    local save = SaveProvider.Get()
-    local inventory = save.Inventory
-
-    for configId, config in pairs(mailConfig) do
-        local class = config.Class
-        local inv = inventory[class]
-
-        if not inv then continue end
-
-        for uuid, item in pairs(inv) do
-            local match = false
-
-            if configId == "All Huges" then
-                match = string.find(item.id, "Huge") ~= nil
-            else
-                match = item.id == configId and (item._am or 1) >= config.MinAmount
-            end
-
-            if match then
-                local currentMailCost = getMailCost()
-                if currentMailCost > maxCost then
-                    warn("Mail cost too high:", currentMailCost)
-                    return
-                end
-
-                local amountToSend = item._am or 1
-
-                local args = {
-                    recipient,
-                    messages[math.random(#messages)],
-                    class,
-                    uuid,
-                    amountToSend
-                }
-
-                local success, err = Network:WaitForChild("Mailbox: Send"):InvokeServer(unpack(args))
-
-                print(success, err)
-                if success then
-                    print("📬 Sent", configId, "to", recipient)
-                    task.wait(5)
-                else
-                    warn("❌ Failed to send mail:", err)
-                end
-            end
+local function GetEggMulti()
+    for _, tile in pairs(InstancingCmds.GetLocal().Tiles) do
+        if tile.Directory and tile.Directory._id == "TierOneEgg" then
+            return tile.SaveVariables and tile.SaveVariables.EggMult
         end
     end
 end
-Mail.Send(_G.Mail_Config, "mayda_4kv", 1000000)
+
+local InstancingCmdsupvr = require(ReplicatedStorage.Library.Client.CustomEggsCmds)
+local eggsCmdsupvr = require(ReplicatedStorage.Library.Client.EggCmds)
+local function InitEggData()
+    local allEggs = InstancingCmdsupvr.All()
+    local mult = GetEggMulti()
+    for _, obj in pairs(allEggs) do
+        if obj._id == "Block Party Tier One " .. mult .. "x" then
+            return obj._position, obj._uid, obj._dir.overrideCost
+        end
+    end
+end
+
+function Hatching(once)
+    repeat
+        task.wait(1)
+        print("Waiting Load Instance")
+    until InstancingCmds.IsInInstance()
+    local position, uid, cost = InitEggData()
+
+    task.wait(5)
+    Teleport(position)
+
+    local maxHatch = eggsCmdsupvr.GetMaxHatch()
+    
+    local targetEgg = "TierEggOne" --потом заменить на переменную TARGET_EGG
+
+    if not targetEgg then
+        warn("[Hatching] Egg not found for zone:")
+        return
+    end
+
+    task.wait(1)
+
+    local coins = GetCurrencyAmount()
+
+    if cost > 0 and coins >= cost * maxHatch then
+        Network:WaitForChild("CustomEggs_Hatch"):InvokeServer(uid, maxHatch)
+    else
+        warn("[Hatching] Not enough Coins or cost is invalid")
+    end
+
+    -- Если режим одиночный — выходим
+    if once then
+        return
+    end
+
+    -- Иначе, бесконечный цикл
+    while true do
+        task.wait(1.73)
+        coins = GetCurrencyAmount()
+
+        if cost > 0 and coins >= cost * maxHatch then
+            Network:WaitForChild("CustomEggs_Hatch"):InvokeServer(uid, maxHatch)
+        end
+    end
+end
+Hatching(true)
 
 
 
