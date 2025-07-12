@@ -1,9 +1,12 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Network = ReplicatedStorage:WaitForChild("Network")
-local InstancingCmds = require(ReplicatedStorage.Library.Client.PlotCmds.ClientPlot)
+local InstancingEventCmds = require(ReplicatedStorage.Library.Client.PlotCmds.ClientPlot)
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
+local InstancingCmds = require(game:GetService("ReplicatedStorage").Library.Client.InstancingCmds)
+local InstancingCmdsupvr = require(ReplicatedStorage.Library.Client.CustomEggsCmds)
+local eggsCmdsupvr = require(ReplicatedStorage.Library.Client.EggCmds)
 local function Teleport(position)
     if LocalPlayer.Character then
         LocalPlayer.Character:MoveTo(position)
@@ -12,15 +15,13 @@ end
 print("=====================")
 
 local function GetEggMulti()
-    for _, tile in pairs(InstancingCmds.GetLocal().Tiles) do
+    for _, tile in pairs(InstancingEventCmds.GetLocal().Tiles) do
         if tile.Directory and tile.Directory._id == "TierOneEgg" then
             return tile.SaveVariables and tile.SaveVariables.EggMult
         end
     end
 end
 
-local InstancingCmdsupvr = require(ReplicatedStorage.Library.Client.CustomEggsCmds)
-local eggsCmdsupvr = require(ReplicatedStorage.Library.Client.EggCmds)
 local function InitEggData()
     local allEggs = InstancingCmdsupvr.All()
     local mult = GetEggMulti()
