@@ -1,7 +1,6 @@
 local prefix = "PlayerScripts."
 local LocalPlayer = game.Players.LocalPlayer
 local rawList = [[
-Scripts.Game.Pets
 Scripts.Game.Pets.PetAI
 Scripts.Game.Misc["World Animations"].PlanetAnimations
 Scripts.Game["Trading Plaza Portal"]
@@ -35,19 +34,18 @@ PlayerModule.CommonUtils.ConnectionUtil
 Scripts.Game["Egg Opening Frontend"]
 Scripts.Game.Misc["Huge Event Billboard"]
 Scripts.Game["Upgrades Frontend"]
+Scripts.Game.Events.BlockParty["Block Party Rebirth"]
 PlayerModule.CameraModule.VehicleCamera.VehicleCameraConfig
 PlayerModule.CameraModule.VRVehicleCamera
 PlayerModule.ControlModule.TouchThumbstick
 Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.ProgressBar
 Scripts.Test["Test Riding"]
-Scripts.GUIs.Instances.BasketballCalendar
 Scripts.GUIs["Boosts Panel V3"].Modules.Friends
 Scripts.Game["Time Trials"]
 Scripts.Game["Tower Tycoon Raffle Boards"]
 Scripts.Test["UI Resize Finder"]
 Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.Completed.UITextSizeConstraint
 PlayerModule.CameraModule.Invisicam
-Scripts.GUIs["World GUIs"]
 Scripts.Game.Machines["Item Index"]
 Scripts.Core["Custom Chat Filtering"]
 Scripts.GUIs["Boosts Panel V3"]
@@ -56,7 +54,6 @@ Scripts.Game.Misc["World Animations"]["Rainbow Road Animations"]
 Scripts.GUIs["Tower Players Billboard Gui"]
 PlayerModule.CameraModule.CameraToggleStateController
 Scripts.GUIs["Boosts Panel V3"].Modules.Gamepasses
-Scripts.GUIs["Hype Eggs"]
 Scripts.GUIs["Boosts Panel V3"].Modules.TowerXpDouble
 Scripts.Game.Breakables["Breakables Frontend"]
 Scripts.GUIs["Free Gifts"]
@@ -70,7 +67,6 @@ Scripts.Game.Misc["Prison World"]["Prison Doors"]
 Scripts.Game["Clan Castle Door"]
 Scripts.Game.Misc["World Animations"]["VIP Water Chests"]
 Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.ProgressBar.Bar.UIGradient
-Scripts.Game.Misc["Egg Promo"]
 Scripts.GUIs["Boosts Panel V3"].Modules.Subscriptions
 Scripts.Game.Misc["World Animations"]["Castle Propeller Cat"]
 Scripts.Test["Test Message"]
@@ -103,14 +99,11 @@ Scripts.Test["Test Raid UI"]
 Scripts.Test["Print Damage Factor"]
 Scripts.Test["Test Exclamation"]
 Scripts.Test["Find Skinned Meshes"]
-Scripts.Game["Trading Plaza"]
 Scripts.Test["Test Rain"]
 Scripts.Test["Test Fireworks"]
 Scripts.Game.Enchants
 Scripts.Test["Test Confetti"]
 Scripts.Test["Disable Development UI On Boot"]
-Scripts.Test
-Scripts.Misc
 Scripts.Game.Farming["Farming Gift Notification"]
 Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.ProgressBar.UIStroke
 Scripts.Game.Misc["Prison World"]
@@ -140,13 +133,10 @@ Scripts.Game["Egg Opening Frontend"].EggPositions
 Scripts.Game.Misc["World Animations"]["Lighthouse Animation"]
 Scripts.Game["Doodle World"]["Doodle Jar"]
 Scripts.GUIs["PETS GO Countdown"]
-Scripts.Game["Doodle World"]
-Scripts.Game.Raffles
 PlayerModule.ControlModule.PathDisplay
 Scripts.Game.Misc["Egg Promo"]["Egg Pets Farming"]
 Scripts.Game.Misc["Egg Promo"]["Monday Pets Fantasy"]
 Scripts.Game.Misc["World Animations"]["Window Glow Animation"]
-Scripts.Game["Random Events"]
 Scripts.Game.Misc["Notification Prompt"]
 PlayerModule.CameraModule.Poppercam
 Scripts.GUIs["Boosts Panel V3"].BasketballEvent
@@ -172,20 +162,14 @@ Scripts.Game.Ultimates
 Scripts.Game["Trading Plaza"]["Main Game Portal"]
 Scripts.Game["Mastery (Square Version)"]
 Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.Title.UIStroke
-Scripts.Game.ForeverPacks
 Scripts.GUIs.Ranks.Sound
 Scripts.Game.Worlds["Olympus World"]
-Scripts.Game["Race Rewards"]
 Scripts.Game["Breakable VFX (Enchants, etc"].)
 Scripts.Game["Machine Animations"]["Pickaxe Machine Anim"]
-Scripts.Game["Machine Animations"]
-Scripts.Game.Instancing
 Scripts.Game.Worlds["Obby World"]
-Scripts.GUIs
 Scripts.Game.Misc["Potato Mode Setting"]
 Scripts.GUIs["Boosts Panel V3"].Modules.Potions
 Scripts.GUIs["Egg Deal"]
-Scripts.Game.Machines
 Scripts.Game.Worlds
 Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.ProgressBar.Bar.UICorner
 PlayerModule.CommonUtils.CharacterUtil
@@ -195,16 +179,13 @@ Scripts.Game.Misc["Favorite Prompt"]
 Scripts.GUIs["New Player Tasks"]
 Scripts.Game.Misc.Instances
 Scripts.Game.Events.Farming
-Scripts.Game
 Scripts.GUIs["Zone Progress Bar"]
-Scripts.Game.Misc
 Scripts.Core.Controller
 Scripts.Game["Guild Chat (Hide Locally)"]
 PlayerModule.ControlModule.VRNavigation
 Scripts.Game["Tower Tycoon Raffle Boards"].TicketSelector
 Scripts.GUIs["Chat Filters"]
 Scripts.Game["Scary Pet"]
-Scripts
 Scripts.Game.ForeverPacks["Lucky Pack"]
 Scripts.Game.Machines["Vending Machines"]
 Scripts.Game.Misc["World Animations"]["Preston Shop"]
@@ -228,7 +209,6 @@ Scripts.GUIs.Monetization["Free Huge"]
 Scripts.Game.Misc["World Animations"]["Sandcastle Flag Animation"]
 Scripts.Game.Events.Obby
 Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.Title
-Scripts.Core
 Scripts.Game.Misc["World Animations"]["The Hacker Cubes"]
 Scripts.GUIs.Monetization
 Scripts.GUIs["Boosts Panel V3"].Modules.Guilds
