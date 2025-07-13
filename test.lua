@@ -811,8 +811,8 @@ end
 
 
 local function buyTile(x, y)
-    local TILE_ID = InstancingEventCmds.GetLocal().Id
-	local args = {TILE_ID, "PurchaseTile", x, y}
+    _G.TILE_ID = InstancingEventCmds.GetLocal().Id
+	local args = {_G.TILE_ID, "PurchaseTile", x, y}
 	local success = Network:WaitForChild("Plots_Invoke"):InvokeServer(unpack(args))
 	return success == true
 end
@@ -947,8 +947,7 @@ local function TryRebirth()
     
     if rebirths < 10 then
         local success = pcall(function()
-            return game:GetService("ReplicatedStorage")
-                .Network:WaitForChild("Rebirth_Request"):InvokeServer()
+            return game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Plots_Invoke"):InvokeServer(_G.TILE_ID, "Rebirth")
         end)
 
         if success then
@@ -1040,6 +1039,7 @@ local function WaitForEventGround()
     local function tryDelete(obj)
         if namesToDelete[obj.Name] then
             pcall(function() obj:Destroy() end)
+            task.wait()
         end
     end
 
