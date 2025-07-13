@@ -948,7 +948,7 @@ end
 
 local function PurchaseUpgrades()
 	while true do
-		local allTiles = InstancingCmds.GetLocal().Tiles
+		local allTiles = InstancingEventCmds.GetLocal().Tiles
 		local upgradesPurchased = 0
 		local totalUpgrades = 0
 
