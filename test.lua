@@ -7,7 +7,6 @@ _G.Mail_Config = {
 }
 _G.User = "mayda_4kv"
 _G.Max_Mail_Cost = 1000000
-
 local __DARKLUA_BUNDLE_MODULES __DARKLUA_BUNDLE_MODULES={cache={}, load=function(m)if not __DARKLUA_BUNDLE_MODULES.cache[m]then __DARKLUA_BUNDLE_MODULES.cache[m]={c=__DARKLUA_BUNDLE_MODULES[m]()}end return __DARKLUA_BUNDLE_MODULES.cache[m].c end}do function __DARKLUA_BUNDLE_MODULES.a()_G.unoptimizedDuringDefer = {} 
 _G.StopOpti = true
 local Optimization = {}
@@ -1009,14 +1008,56 @@ local function WaitForEventGround()
     until found
 
     task.wait(15)
-    _G.deferOptimization = false
+    
 
-    for _, obj in ipairs(_G.unoptimizedDuringDefer) do
-        Optimization.simplifyObject(obj)
+
+    
+    
+    local namesToDelete = {
+        PrimaryPart = true,
+        Desk = true,
+        Box = true,
+        ["Dev Tile"] = true,
+        Rate = true,
+        LookPoint = true,
+        Borders = true,
+        TileBarriers = true,
+        ["Diamond Rain Tile"] = true,
+        Preston = true,
+        Fountain = true,
+        Vault = true,
+        Model = true,
+        Part = true,
+        Section = true,
+        Arrows = true,
+        ["Portal Tile"] = true,
+        Lock = true,
+        Animated = true,
+        Volcano = true,
+        Mine = true
+    }
+
+    local function tryDelete(obj)
+        if namesToDelete[obj.Name] then
+            pcall(function() obj:Destroy() end)
+        end
     end
-    table.clear(_G.unoptimizedDuringDefer)
-    task.wait()
-    _G.StopOpti = false
+
+    for _, tile in ipairs(workspace.__THINGS.Tiles:GetChildren()) do
+        for _, child in ipairs(tile:GetChildren()) do
+            tryDelete(child)
+        end
+
+        tile.ChildAdded:Connect(tryDelete)
+    end
+
+    workspace.__THINGS.Tiles.ChildAdded:Connect(function(newTile)
+        newTile.ChildAdded:Connect(tryDelete)
+
+        for _, child in ipairs(newTile:GetChildren()) do
+            tryDelete(child)
+        end
+    end)
 end
 
 
@@ -1128,6 +1169,7 @@ end
 
 return Webhook end end
 
+
 Optimization = __DARKLUA_BUNDLE_MODULES.load('a')
 FreeGifts = __DARKLUA_BUNDLE_MODULES.load('b')
 Misc = __DARKLUA_BUNDLE_MODULES.load('c')
@@ -1172,6 +1214,8 @@ task.spawn(function()
         task.wait(300)
     end
 end)
+
+
 
 
 
