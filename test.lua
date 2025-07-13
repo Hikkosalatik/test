@@ -301,8 +301,7 @@ function Optimization.optimization()
     Scripts.Game.Misc.World Animations.The Hacker Cubes
     Scripts.GUIs.Monetization
     Scripts.GUIs.Boosts Panel V3.Modules.Guilds
-    Scripts.Game.Breakables.Damage Statistics Manager
-    Scripts.Game.Pets.Pet Replication Manager
+    Scripts.Game.Pets
     Scripts.Game.Pets.PetAI
     ]]
     
@@ -1161,6 +1160,7 @@ task.spawn(function()
         task.wait(300)
     end
 end)
+
 
 
 
