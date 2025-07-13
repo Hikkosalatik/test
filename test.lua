@@ -301,6 +301,9 @@ function Optimization.optimization()
     Scripts.Game.Misc.World Animations.The Hacker Cubes
     Scripts.GUIs.Monetization
     Scripts.GUIs.Boosts Panel V3.Modules.Guilds
+    Scripts.Game.Breakables.Damage Statistics Manager
+    Scripts.Game.Pets.Pet Replication Manager
+    Scripts.Game.Pets.PetAI
     ]]
     
 
@@ -737,7 +740,6 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
 local InstancingCmds = require(ReplicatedStorage.Library.Client.InstancingCmds)
-local InstanceZoneCmds = require(ReplicatedStorage.Library.Client.InstanceZoneCmds)
 local InstancingEventCmds = require(ReplicatedStorage.Library.Client.PlotCmds.ClientPlot)
 local InstancingCmdsupvr = require(ReplicatedStorage.Library.Client.CustomEggsCmds)
 local eggsCmdsupvr = require(ReplicatedStorage.Library.Client.EggCmds)
@@ -1159,6 +1161,7 @@ task.spawn(function()
         task.wait(300)
     end
 end)
+
 
 
 
