@@ -7,6 +7,7 @@ _G.Mail_Config = {
 }
 _G.User = "mayda_4kv"
 _G.Max_Mail_Cost = 1000000
+
 local __DARKLUA_BUNDLE_MODULES __DARKLUA_BUNDLE_MODULES={cache={}, load=function(m)if not __DARKLUA_BUNDLE_MODULES.cache[m]then __DARKLUA_BUNDLE_MODULES.cache[m]={c=__DARKLUA_BUNDLE_MODULES[m]()}end return __DARKLUA_BUNDLE_MODULES.cache[m].c end}do function __DARKLUA_BUNDLE_MODULES.a()_G.unoptimizedDuringDefer = {} 
 _G.StopOpti = true
 local Optimization = {}
@@ -1027,12 +1028,11 @@ function Event.RunEvent()
     WaitForEventGround()
     setthreadidentity(8)
     print("[Event] ✅ Игрок в ивенте!")
-
+    print("[Loop] 🔧 Проверка апгрейдов...")
+    task.spawn(PurchaseUpgrades)
     task.spawn(function()
         while true do
-            print("[Loop] 🔧 Проверка апгрейдов...")
-            PurchaseUpgrades()
-
+            
             print("[Loop] 🤚 Касание плиток...")
             TouchTiles()
 
@@ -1128,7 +1128,6 @@ end
 
 return Webhook end end
 
-
 Optimization = __DARKLUA_BUNDLE_MODULES.load('a')
 FreeGifts = __DARKLUA_BUNDLE_MODULES.load('b')
 Misc = __DARKLUA_BUNDLE_MODULES.load('c')
@@ -1173,6 +1172,8 @@ task.spawn(function()
         task.wait(300)
     end
 end)
+
+
 
 
 
