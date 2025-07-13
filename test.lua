@@ -3,6 +3,7 @@ local LocalPlayer = game.Players.LocalPlayer
 local rawList = [[
 Scripts.Game.Pets.PetAI
 Scripts.Game.Misc["World Animations"].PlanetAnimations
+Scripts.Game.Breakables
 Scripts.Game["Trading Plaza Portal"]
 Scripts.Game.Music
 Scripts.Game.Pets["Modifier VFX"]["Happy Pets VFX"]
