@@ -232,6 +232,11 @@ Scripts.Core
 Scripts.Game.Misc["World Animations"]["The Hacker Cubes"]
 Scripts.GUIs.Monetization
 Scripts.GUIs["Boosts Panel V3"].Modules.Guilds
+["Parallel Pet Actors"]:GetChildren()[5]["Parallel Pet Controller"]
+["Parallel Pet Actors"]:GetChildren()[4]["Parallel Pet Controller"]
+["Parallel Pet Actors"]:GetChildren()[3]["Parallel Pet Controller"]
+["Parallel Pet Actors"]:GetChildren()[2]["Parallel Pet Controller"]
+["Parallel Pet Actors"]:GetChildren()[1]["Parallel Pet Controller"]
 ]]
 
 -- Формируем список исключений
