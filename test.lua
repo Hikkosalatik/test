@@ -239,14 +239,20 @@ Scripts.GUIs["Boosts Panel V3"].Modules.Guilds
 ["Parallel Pet Actors"]["Parallel Pet"]["Parallel Pet Controller"]
 ]]
 
--- Формируем список исключений
-local excludedPaths = {}
-for line in rawList:gmatch("[^\r\n]+") do
+
+
+-- Список исключений
+local excludedPaths = {
+    ["PlayerScripts.Parallel Pet Actors"] = true
+}
+
+-- Преобразование строк в исключения (если есть rawList)
+for line in (rawList or ""):gmatch("[^\r\n]+") do
     local cleanLine = prefix .. line:match("^%s*(.-)%s*$")
     excludedPaths[cleanLine] = true
 end
 
--- Получение относительного пути объекта
+-- Получить относительный путь объекта
 local function getPathFrom(root, obj)
     local path = obj.Name
     local parent = obj.Parent
@@ -257,24 +263,28 @@ local function getPathFrom(root, obj)
     return parent == root and prefix .. path or nil
 end
 
--- Удаление скриптов, которые не в исключениях
+-- Удалить всё, что не в исключениях
 local function DestroyFiltered(root)
     for _, obj in ipairs(root:GetDescendants()) do
-        local relativePath = getPathFrom(root, obj)
-        if relativePath and obj:IsA("LocalScript") then
-            local isExcluded = false
-            for excluded in pairs(excludedPaths) do
-                if string.find(relativePath, excluded, 1, true) then
-                    isExcluded = true
-                    break
+        if obj:IsA("LocalScript") then
+            local relativePath = getPathFrom(root, obj)
+            if relativePath then
+                local isExcluded = false
+                for excludedPath in pairs(excludedPaths) do
+                    -- Проверяем, начинается ли путь с исключённого пути
+                    if relativePath:sub(1, #excludedPath) == excludedPath then
+                        isExcluded = true
+                        break
+                    end
                 end
-            end
-            if not isExcluded then
-                print("Destroying:", relativePath)
-                pcall(function() obj:Destroy() end)
-                task.wait()
-            else
-                print("Excluded:", relativePath)
+
+                if not isExcluded then
+                    print("Destroying:", relativePath)
+                    pcall(function() obj:Destroy() end)
+                    task.wait()
+                else
+                    print("Excluded:", relativePath)
+                end
             end
         end
     end
@@ -282,6 +292,7 @@ end
 
 -- Запуск
 DestroyFiltered(LocalPlayer:WaitForChild("PlayerScripts"))
+
 
 
 
