@@ -661,12 +661,18 @@ function Misc.ChangePetSpeed()
     end
 end
 
-
+function Misc.ClaimMail()
+    while task.wait(300) do
+        Network["Mailbox: Claim All"]:InvokeServer()
+    end
+end
 
 function Misc.Start(a,b,c)
     task.spawn(Misc.AntiAFK)
     task.wait()
     Misc.SuperMagnet()
+    task.wait()
+    task.spawn(Misc.ClaimMail)
     task.wait()
     task.spawn(function()
         repeat task.wait(1) until InstancingCmds.IsInInstance()
@@ -844,7 +850,7 @@ local function spiralPurchase()
 						if success then
 							purchased[key] = true
 						end
-						task.wait(0.25)
+						task.wait(0.5)
 					end
 				end
 			end
@@ -872,9 +878,9 @@ local function TouchTiles()
             local touchPart = tile:FindFirstChild("TouchPart")
             if touchPart and touchPart:IsA("BasePart") then
                 firetouchinterest(head, touchPart, 0)
-                task.wait(0.1)
+                task.wait(0.25)
                 firetouchinterest(head, touchPart, 1)
-                task.wait(0.1)
+                task.wait(0.25)
             end
         end
     end
@@ -990,9 +996,111 @@ local function PurchaseUpgrades()
 
 		if upgradesPurchased == 0 then
 			print("No affordable or unclaimed upgrades found. Retrying in 10 seconds...")
-			task.wait(10)
+			task.wait(60)
 		end
 	end
+end
+
+local function gui()
+    local Players = game:GetService("Players")
+    local save = require(game:GetService("ReplicatedStorage").Library.Client.Save)
+    local LocalPlayer = Players.LocalPlayer
+    local firsttime = os.time()
+    local firstdiamonds = save.Get().BoothDiamondsEarned
+    local screenGui = Instance.new("ScreenGui")
+
+    screenGui.Name = "GUI"
+    screenGui.IgnoreGuiInset = true
+    screenGui.ResetOnSpawn = false
+    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+    screenGui.DisplayOrder = 1e6
+    screenGui.Parent = nil
+
+    local background = Instance.new("Frame")
+    background.Size = UDim2.new(1, 0, 1, 0)
+    background.BackgroundColor3 = Color3.new(0, 0, 0)
+    background.BorderSizePixel = 0
+    background.Parent = screenGui
+
+    local nameLabel = Instance.new("TextLabel")
+    nameLabel.Size = UDim2.new(1, 0, 0, 50)
+    nameLabel.Position = UDim2.new(0, 0, 0.05, 0)
+    nameLabel.BackgroundTransparency = 1
+    nameLabel.Text = "Player: " .. LocalPlayer.Name
+    nameLabel.TextColor3 = Color3.new(1, 1, 1)
+    nameLabel.TextScaled = true
+    nameLabel.Font = Enum.Font.SourceSansBold
+    nameLabel.Parent = background
+
+    local timeLabel = Instance.new("TextLabel")
+    timeLabel.Size = UDim2.new(1, 0, 0, 50)
+    timeLabel.Position = UDim2.new(0, 0, 0.15, 0)
+    timeLabel.BackgroundTransparency = 1
+    timeLabel.Text = "Player Time: 0s"
+    timeLabel.TextColor3 = Color3.new(1, 1, 1)
+    timeLabel.TextScaled = true
+    timeLabel.Font = Enum.Font.SourceSans
+    timeLabel.Parent = background
+
+    local rebirthLabel = Instance.new("TextLabel")
+    rebirthLabel.Size = UDim2.new(1, 0, 0, 40)
+    rebirthLabel.Position = UDim2.new(0, 0, 0.25, 0)
+    rebirthLabel.BackgroundTransparency = 1
+    rebirthLabel.Text = "Rebirths: Loading..."
+    rebirthLabel.TextColor3 = Color3.new(1, 1, 1)
+    rebirthLabel.TextScaled = true
+    rebirthLabel.Font = Enum.Font.SourceSansItalic
+    rebirthLabel.Parent = background
+
+    local countLabel = Instance.new("TextLabel")
+    countLabel.Size = UDim2.new(1, 0, 0, 40)
+    countLabel.Position = UDim2.new(0, 0, 0.35, 0)
+    countLabel.BackgroundTransparency = 1
+    countLabel.Text = "Tiles: Loading..."
+    countLabel.TextColor3 = Color3.new(1, 1, 1)
+    countLabel.TextScaled = true
+    countLabel.Font = Enum.Font.SourceSansItalic
+    countLabel.Parent = background
+
+    local coinsLabel = Instance.new("TextLabel")
+    coinsLabel.Size = UDim2.new(1, 0, 0, 40)
+    coinsLabel.Position = UDim2.new(0, 0, 0.45, 0)
+    coinsLabel.BackgroundTransparency = 1
+    coinsLabel.Text = "Coins: Loading..."
+    coinsLabel.TextColor3 = Color3.new(1, 1, 1)
+    coinsLabel.TextScaled = true
+    coinsLabel.Font = Enum.Font.SourceSansItalic
+    coinsLabel.Parent = background
+
+    local footerLabel = Instance.new("TextLabel")
+    footerLabel.Size = UDim2.new(1, 0, 0, 30)
+    footerLabel.Position = UDim2.new(0, 0, 0.95, -30)
+    footerLabel.BackgroundTransparency = 1
+    footerLabel.Text = "Made By Hikko"
+    footerLabel.TextColor3 = Color3.new(1, 1, 1)
+    footerLabel.TextScaled = true
+    footerLabel.Font = Enum.Font.SourceSansItalic
+    footerLabel.Parent = background
+
+    screenGui.Parent = game:GetService("CoreGui")
+
+
+    local function formatTime(seconds)
+        local hours = math.floor(seconds / 3600)
+        local minutes = math.floor((seconds % 3600) / 60)
+        local secs = seconds % 60
+        return string.format("%02d:%02d:%02d", hours, minutes, secs)
+    end
+    task.spawn(function()
+        while true do
+            task.wait(5)
+            local elapsed = os.time() - firsttime
+            timeLabel.Text = "Player Time: " .. formatTime(elapsed)
+            rebirthLabel.Text = "Rebirths: " .. tostring(GetRebirth())
+            countLabel.Text = "Tiles: " .. tostring(CountTiles())
+            coinsLabel.Text = "Coins: " .. tostring(GetCurrencyAmount())
+        end
+    end)
 end
 
 local function WaitForEventGround() 
@@ -1008,7 +1116,10 @@ local function WaitForEventGround()
 
     task.wait(15)
     
-
+    setthreadidentity(8)
+    task.wait(5) 
+    gui()
+    task.wait(2) 
 
     
     
@@ -1043,13 +1154,22 @@ local function WaitForEventGround()
         end
     end
 
-    for _, tile in ipairs(workspace.__THINGS.Tiles:GetChildren()) do
-        for _, child in ipairs(tile:GetChildren()) do
-            tryDelete(child)
+    task.spawn(function()
+        local batchSize = 10
+        local counter = 0
+        for _, tile in ipairs(workspace.__THINGS.Tiles:GetChildren()) do
+            for _, child in ipairs(tile:GetChildren()) do
+                tryDelete(child)
+                counter += 1
+                if counter >= batchSize then
+                    task.wait(0.1)
+                    counter = 0
+                end
+            end
+            tile.ChildAdded:Connect(tryDelete)
         end
+    end)
 
-        tile.ChildAdded:Connect(tryDelete)
-    end
 
     workspace.__THINGS.Tiles.ChildAdded:Connect(function(newTile)
         newTile.ChildAdded:Connect(tryDelete)
@@ -1062,12 +1182,11 @@ end
 
 
 
-
 function Event.RunEvent()
     print("[Event] ⏳ Ожидание телепортации в ивент...")
     setthreadidentity(2)
     WaitForEventGround()
-    setthreadidentity(8)
+    
     print("[Event] ✅ Игрок в ивенте!")
     print("[Loop] 🔧 Проверка апгрейдов...")
     task.spawn(PurchaseUpgrades)
@@ -1088,7 +1207,7 @@ function Event.RunEvent()
             end
 
             print("[Loop] ⏱ Ожидание перед следующей итерацией...\n")
-            task.wait(5)
+            task.wait(60)
         end
     end)
 
@@ -1214,6 +1333,7 @@ task.spawn(function()
         task.wait(300)
     end
 end)
+
 
 
 
