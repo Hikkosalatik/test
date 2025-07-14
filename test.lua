@@ -46,6 +46,24 @@ function Optimization.simplifyObject(obj)
 
 end
 
+local function BoostRam()
+    local module_upvr = require(game:GetService("ReplicatedStorage").Library.Client.BlockPartyCmds.ClientTile)
+    local localPlayer = game.Players.LocalPlayer
+
+    local oldNew = module_upvr.new
+
+    module_upvr.new = function(arg1)
+        if not arg1 or typeof(arg1) ~= "table" then return end
+
+        local owner = arg1.Owner
+        if owner and owner ~= localPlayer then
+            return nil
+        end
+
+        return oldNew(arg1)
+    end
+end
+
 function Optimization.optimization()
     local LocalPlayer = game.Players.LocalPlayer
     local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -207,6 +225,7 @@ function Optimization.optimization()
         end
         task.wait(0.2)
     until false
+    BoostRam()
     repeat
         task.wait(3)
     until _G.initialOptimizationDone
@@ -1167,6 +1186,8 @@ task.spawn(function()
         task.wait(300)
     end
 end)
+
+
 
 
 
