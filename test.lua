@@ -69,229 +69,17 @@ function Optimization.optimization()
         ["ItemNotifications"] = 2,
         ["ReduceOrbs"] = 2,
         ["NotificationsSFX"] = 3,
-        ["Trading"] = 3
+        ["Trading"] = 1
     }
     local sliderSettings = {
         ["SFX"] = 0,
         ["Music"] = 0
     }
     local rawList = [[
-    Scripts.Game.Pets.PetAI
-    Scripts.Game.Misc["World Animations"].PlanetAnimations
-    Scripts.Game["Trading Plaza Portal"]
-    Scripts.Game.Music
-    Scripts.Game.Pets["Modifier VFX"]["Happy Pets VFX"]
-    Scripts.Game.Pets["Modifier VFX"]["\240\159\147\150 README"]
-    PlayerModule.CameraModule.OrbitalCamera
-    Scripts.Game.Misc["Fantasy Transition TEMP"]
-    Scripts.Core["Voice Chat Trading Server"]
-    Scripts.Game.Misc["World Animations"]["Balloons - Castle"]
-    Scripts.GUIs["Boosts Panel V3"].Types
-    Scripts.GUIs["Prison Key Surge Sign"]
-    Scripts.Game.Breakables["Damage Statistics Manager"]
-    Scripts.Game.Misc["World Animations"]["Windmill Animation"]
-    PlayerModule.ControlModule.DynamicThumbstick
-    Scripts.GUIs["Boosts Panel V3"].Modules.__BLUEPRINT
-    PlayerModule.CameraModule.VRBaseCamera
-    PlayerModule.ControlModule.TouchJump
-    PlayerModule.CameraModule.VehicleCamera.VehicleCameraCore
-    PlayerModule.ControlModule
-    PlayerModule.CameraModule.BaseCamera
-    Scripts.Game["Castle Door"]
-    Scripts.Game.Misc["World Animations"]["Spike Animation"]
-    Scripts.Game["My Guild Banner"]
-    Scripts.GUIs["Boosts Panel V3"].Modules.Capes
-    Scripts.Game.Misc["World Animations"]["Door Glow Animation"]
-    Scripts.Game["Physical Eggs Frontend"]
-    Scripts.Core["Chat Nametags"].Filters
-    Scripts.Core["Idle Tracking"]
-    PlayerModule.CommonUtils.ConnectionUtil
-    Scripts.Game["Egg Opening Frontend"]
-    Scripts.Game.Misc["Huge Event Billboard"]
-    Scripts.Game["Upgrades Frontend"]
-    Scripts.Game.Events.BlockParty["Block Party Rebirth"]
-    PlayerModule.CameraModule.VehicleCamera.VehicleCameraConfig
-    PlayerModule.CameraModule.VRVehicleCamera
-    PlayerModule.ControlModule.TouchThumbstick
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.ProgressBar
-    Scripts.Test["Test Riding"]
-    Scripts.GUIs["Boosts Panel V3"].Modules.Friends
-    Scripts.Game["Time Trials"]
-    Scripts.Game["Tower Tycoon Raffle Boards"]
-    Scripts.Test["UI Resize Finder"]
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.Completed.UITextSizeConstraint
-    PlayerModule.CameraModule.Invisicam
-    Scripts.Game.Machines["Item Index"]
-    Scripts.Core["Custom Chat Filtering"]
-    Scripts.GUIs["Boosts Panel V3"]
-    PlayerModule.CameraModule.BaseOcclusion
-    Scripts.Game.Misc["World Animations"]["Rainbow Road Animations"]
-    Scripts.GUIs["Tower Players Billboard Gui"]
-    PlayerModule.CameraModule.CameraToggleStateController
-    Scripts.GUIs["Boosts Panel V3"].Modules.Gamepasses
-    Scripts.GUIs["Boosts Panel V3"].Modules.TowerXpDouble
-    Scripts.Game.Breakables["Breakables Frontend"]
-    Scripts.GUIs["Free Gifts"]
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.Subtitle.UIStroke
-    PlayerModule.ControlModule.VehicleController
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.Title.UITextSizeConstraint
-    Scripts.GUIs["Random Active Drops"]
-    Scripts.Game.Misc["Egg Promo"]["Egg Billboard Pets Cards"]
-    Scripts.Game.Misc["World Animations"]["Enchanted Lights Animation"]
-    Scripts.Game.Misc["Prison World"]["Prison Doors"]
-    Scripts.Game["Clan Castle Door"]
-    Scripts.Game.Misc["World Animations"]["VIP Water Chests"]
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.ProgressBar.Bar.UIGradient
-    Scripts.GUIs["Boosts Panel V3"].Modules.Subscriptions
-    Scripts.Game.Misc["World Animations"]["Castle Propeller Cat"]
-    Scripts.Test["Test Message"]
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.ProgressBar.UICorner
-    PlayerModule.CommonUtils.FlagUtil
-    PlayerModule.CommonUtils.CameraWrapper
-    PlayerModule.ControlModule.Gamepad
-    Scripts.Core["Product Notifications"]
-    Scripts.Game.Misc["World Animations"]["Toilet Cat Outhouse"]
-    Scripts.Game.Items
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.ProgressBar.Bar.UIStroke
-    Scripts.GUIs["Currency 2"]
-    ParallelPetExport
-    PlayerModule.ControlModule.BaseCharacterController
+    PlayerScriptsLoader
+    Scripts.Game.Breakables
     Scripts.Game.Pets
-    ["Parallel Pet Actors"]
-    Scripts.GUIs["Trade Notification"]
-    Scripts.Game["Machine Animations"]["Upgrade Presents Anim"]
-    Scripts.GUIs["Teleports Map OLD"]
-    Scripts.GUIs["Boosts Panel V3"].Modules.FishingEvent
-    PlayerModule.CameraModule.MouseLockController
-    Scripts.Game["Water Detector"]
-    PlayerModule.CameraModule.ClassicCamera
-    ["Parallel Pet Actors"].ParallelPet
-    Scripts.Test["Memory Report"]
-    Scripts.Test["Show Instance Counts"]
-    Scripts.Test["Test Notifications"]
-    Scripts.Game.Gamepasses
-    Scripts.Test["Test Raid UI"]
-    Scripts.Test["Print Damage Factor"]
-    Scripts.Test["Test Exclamation"]
-    Scripts.Test["Find Skinned Meshes"]
-    Scripts.Test["Test Rain"]
-    Scripts.Test["Test Fireworks"]
-    Scripts.Game.Enchants
-    Scripts.Test["Test Confetti"]
-    Scripts.Test["Disable Development UI On Boot"]
-    Scripts.Game.Farming["Farming Gift Notification"]
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.ProgressBar.UIStroke
-    Scripts.Game.Misc["Prison World"]
-    Scripts.GUIs["Boosts Panel V3"].Modules.Rebirths
-    Scripts.Test.MessageTesting
-    Scripts.Game["Gates Frontend"]
-    Scripts.Game.Machines["Tower AFK"]
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.Completed.UIStroke
-    PlayerModule.CameraModule.CameraInput
-    Scripts.Game.Misc["Rebirth VFX"]
-    PlayerModule
-    Scripts.Game.Events.Basketball
-    Scripts.Game.Farming
-    PlayerModule.CameraModule
-    Scripts.Game.Misc["World Animations"].PlanetAnimationsOLD
-    Scripts.Game.Misc["World Animations"]["Disco Bulbs AnimationOLD"]
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.ProgressBar.Bar
-    Scripts.GUIs["Boosts Panel V3"].Modules.SaturdayBuff
-    Scripts.Game.Misc["World Animations"].Balloons
-    Scripts.Test["Disable Player List Menu"]
-    Scripts.Game.Misc["World Animations"]["Gate Countdown"]
-    Scripts.GUIs.Instances
-    Scripts.Game.Machines["Doodle Upgrade Machine"]
-    Scripts.GUIs["Boosts Panel V3"].Modules.Effects
-    Scripts.GUIs["Boosts Panel V3"].Modules["Boost Exchange"]
-    Scripts.Game["Egg Opening Frontend"].EggPositions
-    Scripts.Game.Misc["World Animations"]["Lighthouse Animation"]
-    Scripts.Game["Doodle World"]["Doodle Jar"]
-    Scripts.GUIs["PETS GO Countdown"]
-    PlayerModule.ControlModule.PathDisplay
-    Scripts.Game.Misc["Egg Promo"]["Egg Pets Farming"]
-    Scripts.Game.Misc["Egg Promo"]["Monday Pets Fantasy"]
-    Scripts.Game.Misc["World Animations"]["Window Glow Animation"]
-    Scripts.Game.Misc["Notification Prompt"]
-    PlayerModule.CameraModule.Poppercam
-    Scripts.GUIs["Boosts Panel V3"].BasketballEvent
-    Scripts.Game["Physical Eggs Frontend"].LuckModifiers
-    Scripts.GUIs["Boosts Panel V3"].Modules.Fruit
-    PlayerModule.ControlModule.ClickToMoveDisplay
-    Scripts.Game["Top Guild Banner"]
-    PlayerModule.CameraModule.CameraUI
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.Completed
-    Scripts.Core["Chat Nametags"]
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.UIListLayout
-    PlayerModule.CameraModule.VRCamera
-    PlayerModule.CameraModule.TransparencyController
-    Scripts.GUIs["Boosts Panel V3"].Modules.FactoryPoints
-    Scripts.Game.Events.Hacker["UFO Invasion"]
-    Scripts.Game.Events.Hacker
-    Scripts.Game.Events.Obby["Summer Event Notification"]
-    Scripts.Game.Events
-    PlayerModule.CommonUtils
-    PlayerModule.CameraModule.VehicleCamera
-    PlayerModule.CameraModule.LegacyCamera
-    Scripts.Game.Ultimates
-    Scripts.Game["Trading Plaza"]["Main Game Portal"]
-    Scripts.Game["Mastery (Square Version)"]
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.Title.UIStroke
-    Scripts.GUIs.Ranks.Sound
-    Scripts.Game.Worlds["Olympus World"]
-    Scripts.Game["Breakable VFX (Enchants, etc"].)
-    Scripts.Game["Machine Animations"]["Pickaxe Machine Anim"]
-    Scripts.Game.Worlds["Obby World"]
-    Scripts.Game.Misc["Potato Mode Setting"]
-    Scripts.GUIs["Boosts Panel V3"].Modules.Potions
-    Scripts.GUIs["Egg Deal"]
-    Scripts.Game.Worlds
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.ProgressBar.Bar.UICorner
-    PlayerModule.CommonUtils.CharacterUtil
-    Scripts.Game.Machines["Fantasy Shard Machine"]
-    Scripts.GUIs.Ranks
-    Scripts.Game.Misc["Favorite Prompt"]
-    Scripts.GUIs["New Player Tasks"]
-    Scripts.Game.Misc.Instances
-    Scripts.Game.Events.Farming
-    Scripts.GUIs["Zone Progress Bar"]
-    Scripts.Core.Controller
-    Scripts.Game["Guild Chat (Hide Locally)"]
-    PlayerModule.ControlModule.VRNavigation
-    Scripts.Game["Tower Tycoon Raffle Boards"].TicketSelector
-    Scripts.GUIs["Chat Filters"]
-    Scripts.Game["Scary Pet"]
-    Scripts.Game.ForeverPacks["Lucky Pack"]
-    Scripts.Game.Machines["Vending Machines"]
-    Scripts.Game.Misc["World Animations"]["Preston Shop"]
-    PlayerModule.ControlModule.ClickToMoveController
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.Subtitle.UITextSizeConstraint
-    PlayerModule.CameraModule.ZoomController
-    Scripts.Game.Misc["World Animations"]["Door Cats NPC"]
-    Scripts.Core["Disable Chat on Join"]
-    PlayerModule.ControlModule.Keyboard
-    Scripts.GUIs["Boosts Panel V3"].Modules.Buffs
-    Scripts.GUIs["Boosts Panel V3"].Modules
-    Scripts.Game.Misc.Instances.MillionaireRun
-    PlayerModule.CameraModule.CameraUtils
-    Scripts.GUIs["Ultimates HUD"]
-    Scripts.Game.Misc.Tutorial
-    PlayerModule.CameraModule.ZoomController.Popper
-    Scripts.Game.Misc["World Animations"]["Castle Cat NPC"]
-    Scripts.Test["Test Award Notif"]
-    Scripts.Core["Disable PlaySolo Chat"]
-    Scripts.GUIs.Monetization["Free Huge"]
-    Scripts.Game.Misc["World Animations"]["Sandcastle Flag Animation"]
-    Scripts.Game.Events.Obby
-    Scripts.GUIs["Tower Players Billboard Gui"].BillboardGui.Frame.Title
-    Scripts.Game.Misc["World Animations"]["The Hacker Cubes"]
-    Scripts.GUIs.Monetization
-    Scripts.GUIs["Boosts Panel V3"].Modules.Guilds
-    ["Parallel Pet Actors"]["Parallel Pet"]["Parallel Pet Controller"]
-    ["Parallel Pet Actors"]["Parallel Pet"]["Parallel Pet Controller"]
-    ["Parallel Pet Actors"]["Parallel Pet"]["Parallel Pet Controller"]
-    ["Parallel Pet Actors"]["Parallel Pet"]["Parallel Pet Controller"]
-    ["Parallel Pet Actors"]["Parallel Pet"]["Parallel Pet Controller"]
+    Scripts.Misc.MemoryDebugging
     ]]
 
 
@@ -1120,65 +908,111 @@ local function WaitForEventGround()
     task.wait(5) 
     gui()
     task.wait(2) 
+    _G.deferOptimization = false
+    table.clear(_G.unoptimizedDuringDefer)
+    _G.StopOpti = false
 
-    
-    
-    local namesToDelete = {
-        PrimaryPart = true,
-        Desk = true,
-        Box = true,
-        ["Dev Tile"] = true,
-        Rate = true,
-        LookPoint = true,
-        Borders = true,
-        TileBarriers = true,
-        ["Diamond Rain Tile"] = true,
-        Preston = true,
-        Fountain = true,
-        Vault = true,
-        Model = true,
-        Part = true,
-        Section = true,
-        Arrows = true,
-        ["Portal Tile"] = true,
-        Lock = true,
-        Animated = true,
-        Volcano = true,
-        Mine = true
-    }
-
-    local function tryDelete(obj)
-        if namesToDelete[obj.Name] then
-            pcall(function() obj:Destroy() end)
-            task.wait()
-        end
-    end
-
-    task.spawn(function()
-        local batchSize = 10
-        local counter = 0
-        for _, tile in ipairs(workspace.__THINGS.Tiles:GetChildren()) do
-            for _, child in ipairs(tile:GetChildren()) do
-                tryDelete(child)
-                counter += 1
-                if counter >= batchSize then
-                    task.wait(0.1)
-                    counter = 0
-                end
-            end
-            tile.ChildAdded:Connect(tryDelete)
-        end
-    end)
-
-
-    workspace.__THINGS.Tiles.ChildAdded:Connect(function(newTile)
-        newTile.ChildAdded:Connect(tryDelete)
-
-        for _, child in ipairs(newTile:GetChildren()) do
-            tryDelete(child)
-        end
-    end)
 end
+
+function Event.CollectTiles()
+
+	local Tiles_Invoke = ReplicatedStorage.Network:WaitForChild("Tiles_Invoke")
+	local Tiles_Fire = ReplicatedStorage.Network:WaitForChild("Tiles_Fire")
+
+	local tiles = InstancingEventCmds.GetLocal().Tiles
+	local currentTime = os.time()
+
+	local config = {
+		["TimedVault"] = {
+			type = "invoke",
+			argName = "LastOpened",
+			cooldown = 5 * 60,
+			args = function(id) return {id, "Open"} end,
+		},
+		["PopCatTile"] = {
+			type = "invoke",
+			argName = "LastOpened",
+			cooldown = 20 * 60,
+			args = function(id) return {id, "Open"} end,
+		},
+		["DigLoot"] = {
+			type = "invoke",
+			argName = "LastOpened",
+			cooldown = 20 * 60,
+			args = function(id) return {id, "Open"} end,
+		},
+		["Obby"] = {
+			type = "invoke",
+			argName = "LastOpened",
+			cooldown = 20 * 60,
+			args = function(id) return {id, "Open"} end,
+		},
+		["GiantDiamond"] = {
+			type = "invoke",
+			argName = "LastClaimed",
+			cooldown = 15 * 60,
+			args = function(id) return {id, "Tile_ClaimDiamonds"} end,
+		},
+		["Portal"] = {
+			type = "fire",
+			argName = "LastClaimed",
+			cooldown = 10 * 60,
+			args = function(id) return {id, "Claim"} end,
+		},
+		["StairWayToHeavenTile"] = {
+			type = "invoke",
+			argName = "LastOpened",
+			cooldown = 20 * 60,
+			args = function(id) return {id, "Open"} end,
+		},
+		["Plants"] = {
+			type = "plants",
+			cooldown = 10 * 60,
+			count = 6,
+		}
+	}
+
+	local function isCooldownReady(last, cd)
+		return not last or (currentTime - last) >= cd
+	end
+    print("[Event] Collecting Tiles")
+	for id, tile in pairs(tiles) do
+		local vars = tile.SaveVariables
+		local dirId = vars and vars.DirId
+		local cfg = config[dirId]
+
+		if cfg then
+			if cfg.type == "plants" then
+				for i = 1, cfg.count do
+					local key = "LastClaimed" .. i
+					local last = vars[key]
+					if isCooldownReady(last, cfg.cooldown) then
+						local args = {id, "Claim", i}
+						pcall(function()
+							Tiles_Invoke:InvokeServer(unpack(args))
+						end)
+						task.wait(0.5)
+					end
+				end
+			else
+				local last = vars[cfg.argName]
+				if isCooldownReady(last, cfg.cooldown) then
+					local args = cfg.args(id)
+					pcall(function()
+						if cfg.type == "invoke" then
+							Tiles_Invoke:InvokeServer(unpack(args))
+						elseif cfg.type == "fire" then
+							Tiles_Fire:FireServer(unpack(args))
+						end
+					end)
+					task.wait(0.5)
+				end
+			end
+		end
+	end
+end
+
+
 
 
 
@@ -1333,6 +1167,7 @@ task.spawn(function()
         task.wait(300)
     end
 end)
+
 
 
 
